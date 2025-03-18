@@ -1,0 +1,1794 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.3">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan">
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+    </TestPlan>
+    <hashTree>
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="server_ip" elementType="Argument">
+            <stringProp name="Argument.name">server_ip</stringProp>
+            <stringProp name="Argument.value">172.23.176.132</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </Arguments>
+      <hashTree/>
+      <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager">
+        <collectionProp name="CookieManager.cookies">
+          <elementProp name="OCSESSID" elementType="Cookie" testname="OCSESSID">
+            <stringProp name="Cookie.value">7a57c26b49db95e2e36e7b872a</stringProp>
+            <stringProp name="Cookie.domain">172.23.176.132</stringProp>
+            <stringProp name="Cookie.path">/</stringProp>
+            <boolProp name="Cookie.secure">false</boolProp>
+            <longProp name="Cookie.expires">0</longProp>
+            <boolProp name="Cookie.path_specified">true</boolProp>
+            <boolProp name="Cookie.domain_specified">true</boolProp>
+          </elementProp>
+        </collectionProp>
+        <boolProp name="CookieManager.clearEachIteration">false</boolProp>
+        <boolProp name="CookieManager.controlledByThreadGroup">false</boolProp>
+      </CookieManager>
+      <hashTree/>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="OpenCart ">
+        <intProp name="ThreadGroup.num_threads">20</intProp>
+        <intProp name="ThreadGroup.ramp_time">240</intProp>
+        <longProp name="ThreadGroup.duration">3600</longProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
+          <intProp name="LoopController.loops">-1</intProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </ThreadGroup>
+      <hashTree>
+        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config" enabled="true">
+          <stringProp name="delimiter">,</stringProp>
+          <stringProp name="fileEncoding"></stringProp>
+          <stringProp name="filename">/Users/adrianstrimbanu/Desktop/JmeterCSV.csv</stringProp>
+          <boolProp name="ignoreFirstLine">true</boolProp>
+          <boolProp name="quotedData">false</boolProp>
+          <boolProp name="recycle">true</boolProp>
+          <stringProp name="shareMode">shareMode.all</stringProp>
+          <boolProp name="stopThread">false</boolProp>
+          <stringProp name="variableNames">email, password</stringProp>
+        </CSVDataSet>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Step 0 - Home page">
+          <stringProp name="HTTPSampler.domain">${server_ip}</stringProp>
+          <stringProp name="HTTPSampler.path">opencart/upload/index.php?route=common/home</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Think Time">
+          <intProp name="ActionProcessor.action">1</intProp>
+          <intProp name="ActionProcessor.target">0</intProp>
+          <stringProp name="ActionProcessor.duration">0</stringProp>
+        </TestAction>
+        <hashTree>
+          <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause">
+            <stringProp name="ConstantTimer.delay">1000</stringProp>
+            <stringProp name="RandomTimer.range">100</stringProp>
+          </UniformRandomTimer>
+          <hashTree/>
+        </hashTree>
+        <ThroughputController guiclass="ThroughputControllerGui" testclass="ThroughputController" testname="Throughput Controller">
+          <intProp name="ThroughputController.style">1</intProp>
+          <boolProp name="ThroughputController.perThread">false</boolProp>
+          <intProp name="ThroughputController.maxThroughput">1</intProp>
+          <FloatProperty>
+            <name>ThroughputController.percentThroughput</name>
+            <value>70.0</value>
+            <savedValue>0.0</savedValue>
+          </FloatProperty>
+        </ThroughputController>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Step 1 - Login" enabled="true">
+            <stringProp name="HTTPSampler.domain">${server_ip}</stringProp>
+            <stringProp name="HTTPSampler.contentEncoding">utf-8</stringProp>
+            <stringProp name="HTTPSampler.path">/opencart/upload/index.php?route=account/login</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="email" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${email}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">email</stringProp>
+                </elementProp>
+                <elementProp name="password" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${password}!</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">password</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+              <collectionProp name="Asserion.test_strings"/>
+              <stringProp name="Assertion.custom_message"></stringProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">16</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Referer</stringProp>
+                  <stringProp name="Header.value">http://172.23.176.132/opencart/upload/index.php?route=account/login</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Accept-Language</stringProp>
+                  <stringProp name="Header.value">en-US,en;q=0.9,cs;q=0.8,ca;q=0.7,es-ES;q=0.6,es;q=0.5,de;q=0.4,de-AT;q=0.3,fr-CA;q=0.2,fr;q=0.1,en-GB;q=0.1</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Origin</stringProp>
+                  <stringProp name="Header.value">http://172.23.176.132</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Accept</stringProp>
+                  <stringProp name="Header.value">text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Upgrade-Insecure-Requests</stringProp>
+                  <stringProp name="Header.value">1</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Cache-Controlx</stringProp>
+                  <stringProp name="Header.value">max-age=0</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Accept-Encoding</stringProp>
+                  <stringProp name="Header.value">gzip, deflate</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">User-Agent</stringProp>
+                  <stringProp name="Header.value">Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
+          </hashTree>
+          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="Transaction Controller">
+            <boolProp name="TransactionController.includeTimers">false</boolProp>
+          </TransactionController>
+          <hashTree>
+            <ThroughputController guiclass="ThroughputControllerGui" testclass="ThroughputController" testname="Throughput Controller">
+              <intProp name="ThroughputController.style">1</intProp>
+              <boolProp name="ThroughputController.perThread">false</boolProp>
+              <intProp name="ThroughputController.maxThroughput">1</intProp>
+              <FloatProperty>
+                <name>ThroughputController.percentThroughput</name>
+                <value>40.0</value>
+                <savedValue>0.0</savedValue>
+              </FloatProperty>
+            </ThroughputController>
+            <hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Step 2 - Show All Categories ">
+                <stringProp name="HTTPSampler.domain">${server_ip}</stringProp>
+                <stringProp name="HTTPSampler.contentEncoding">utf-8</stringProp>
+                <stringProp name="HTTPSampler.path">/opencart/upload/index.php</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+                  <collectionProp name="Arguments.arguments"/>
+                </elementProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="path_id" enabled="false">
+                  <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+                  <stringProp name="RegexExtractor.refname">path</stringProp>
+                  <stringProp name="RegexExtractor.regex">path=(\d+)&quot;</stringProp>
+                  <stringProp name="RegexExtractor.template">$1$</stringProp>
+                  <stringProp name="RegexExtractor.default"></stringProp>
+                  <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
+                  <stringProp name="RegexExtractor.match_number">1</stringProp>
+                </RegexExtractor>
+                <hashTree/>
+                <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager">
+                  <collectionProp name="HeaderManager.headers">
+                    <elementProp name="" elementType="Header">
+                      <stringProp name="Header.name">Referer</stringProp>
+                      <stringProp name="Header.value">http://172.23.176.132/opencart/upload/index.php?route=common/home</stringProp>
+                    </elementProp>
+                    <elementProp name="" elementType="Header">
+                      <stringProp name="Header.name">Accept-Language</stringProp>
+                      <stringProp name="Header.value">en-US,en;q=0.9,cs;q=0.8,ca;q=0.7,es-ES;q=0.6,es;q=0.5,de;q=0.4,de-AT;q=0.3,fr-CA;q=0.2,fr;q=0.1,en-GB;q=0.1</stringProp>
+                    </elementProp>
+                    <elementProp name="" elementType="Header">
+                      <stringProp name="Header.name">Upgrade-Insecure-Requests</stringProp>
+                      <stringProp name="Header.value">1</stringProp>
+                    </elementProp>
+                    <elementProp name="" elementType="Header">
+                      <stringProp name="Header.name">Cache-Controlx</stringProp>
+                      <stringProp name="Header.value">max-age=0</stringProp>
+                    </elementProp>
+                    <elementProp name="" elementType="Header">
+                      <stringProp name="Header.name">Accept-Encoding</stringProp>
+                      <stringProp name="Header.value">gzip, deflate</stringProp>
+                    </elementProp>
+                    <elementProp name="" elementType="Header">
+                      <stringProp name="Header.name">User-Agent</stringProp>
+                      <stringProp name="Header.value">Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36</stringProp>
+                    </elementProp>
+                    <elementProp name="" elementType="Header">
+                      <stringProp name="Header.name">Accept</stringProp>
+                      <stringProp name="Header.value">text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7</stringProp>
+                    </elementProp>
+                  </collectionProp>
+                </HeaderManager>
+                <hashTree/>
+                <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="categoryPath">
+                  <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+                  <stringProp name="RegexExtractor.refname">categoryPath</stringProp>
+                  <stringProp name="RegexExtractor.regex">path=(\d+)&quot;</stringProp>
+                  <stringProp name="RegexExtractor.template">$1$</stringProp>
+                  <stringProp name="RegexExtractor.default">NOT_FOUND</stringProp>
+                  <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
+                  <stringProp name="RegexExtractor.match_number">0</stringProp>
+                </RegexExtractor>
+                <hashTree/>
+              </hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Step 3 - Show selected category">
+                <stringProp name="HTTPSampler.domain">${server_ip}</stringProp>
+                <stringProp name="HTTPSampler.contentEncoding">utf-8</stringProp>
+                <stringProp name="HTTPSampler.path">/opencart/upload/index.php?route=product/category&amp;path=${categoryPath}</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+                  <collectionProp name="Arguments.arguments"/>
+                </elementProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="product_id">
+                  <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+                  <stringProp name="RegexExtractor.refname">product_id</stringProp>
+                  <stringProp name="RegexExtractor.regex">product_id=(\d+)</stringProp>
+                  <stringProp name="RegexExtractor.template">$1$</stringProp>
+                  <stringProp name="RegexExtractor.default"></stringProp>
+                  <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
+                  <stringProp name="RegexExtractor.match_number">0</stringProp>
+                </RegexExtractor>
+                <hashTree/>
+                <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+                  <collectionProp name="HeaderManager.headers">
+                    <elementProp name="" elementType="Header">
+                      <stringProp name="Header.name">Referer</stringProp>
+                      <stringProp name="Header.value">http://172.23.176.132/opencart/upload/index.php?route=product/category&amp;path=${categoryPath}</stringProp>
+                    </elementProp>
+                    <elementProp name="" elementType="Header">
+                      <stringProp name="Header.name">Accept-Language</stringProp>
+                      <stringProp name="Header.value">en-US,en;q=0.9,cs;q=0.8,ca;q=0.7,es-ES;q=0.6,es;q=0.5,de;q=0.4,de-AT;q=0.3,fr-CA;q=0.2,fr;q=0.1,en-GB;q=0.1</stringProp>
+                    </elementProp>
+                    <elementProp name="" elementType="Header">
+                      <stringProp name="Header.name">Upgrade-Insecure-Requests</stringProp>
+                      <stringProp name="Header.value">1</stringProp>
+                    </elementProp>
+                    <elementProp name="" elementType="Header">
+                      <stringProp name="Header.name">Accept-Encoding</stringProp>
+                      <stringProp name="Header.value">gzip, deflate</stringProp>
+                    </elementProp>
+                    <elementProp name="" elementType="Header">
+                      <stringProp name="Header.name">User-Agent</stringProp>
+                      <stringProp name="Header.value">Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36</stringProp>
+                    </elementProp>
+                    <elementProp name="" elementType="Header">
+                      <stringProp name="Header.name">Accept</stringProp>
+                      <stringProp name="Header.value">text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7</stringProp>
+                    </elementProp>
+                  </collectionProp>
+                </HeaderManager>
+                <hashTree/>
+                <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="parameters"></stringProp>
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">// Extract category path from Regex Extractor
+def categoryPath = vars.get(&quot;categoryPath&quot;) ?: &quot;&quot;
+def finalPath = vars.get(&quot;finalCategoryPath&quot;) ?: categoryPath // Preserve previous value if already set
+
+//log.info(&quot;📌 Extracted categoryPath from vars: &apos;${categoryPath}&apos;&quot;)
+
+// Log if `finalCategoryPath` already exists (from a previous request)
+def previousFinalPath = vars.get(&quot;finalCategoryPath&quot;) ?: &quot;&quot;
+if (previousFinalPath) {
+    log.warn(&quot;⚠️ `finalCategoryPath` was already set to &apos;${previousFinalPath}&apos; before this execution.&quot;)
+}
+
+// 🚨 If categoryPath is &quot;2558&quot;, redirect it to &quot;20&quot;
+if (categoryPath == &quot;2558&quot;) {
+    //log.warn(&quot;⚠️ Invalid category detected (2558)! Redirecting to category 20.&quot;)
+    finalPath = &quot;20&quot;  // Hardcoded redirect to a valid category
+}
+
+// 🚨 If categoryPath is &quot;25&quot;, force navigation to subcategory &quot;25_28&quot;
+else if (categoryPath == &quot;25&quot; &amp;&amp; !previousFinalPath) { // Change only if not already set
+    //log.info(&quot;🔁 Category 25 detected! Redirecting to subcategory 25_28.&quot;)
+    finalPath = &quot;25_28&quot;
+} else {
+    //log.info(&quot;✅ Normal category selected: ${categoryPath}&quot;)
+}
+
+// Prevent unexpected overwrites
+if (previousFinalPath &amp;&amp; previousFinalPath != finalPath) {
+    //log.error(&quot;🚨 Attempt to change `finalCategoryPath` from &apos;${previousFinalPath}&apos; to &apos;${finalPath}&apos; detected! Keeping previous value.&quot;)
+    finalPath = previousFinalPath
+}
+
+// Store the correct path for the next request
+vars.put(&quot;finalCategoryPath&quot;, finalPath)
+//log.info(&quot;🚀 Final Navigation Path Set: ${finalPath}&quot;)
+
+// *** Override the request URL dynamically ***
+def baseUrl = &quot;http://172.23.176.132/opencart/upload/index.php?route=product/category&amp;path=&quot;
+def newUrl = baseUrl + finalPath
+
+vars.put(&quot;redirectUrl&quot;, newUrl)
+//log.info(&quot;🔀 Redirecting JMeter to: ${newUrl}&quot;)
+</stringProp>
+                </JSR223PreProcessor>
+                <hashTree/>
+                <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="Retry Logic" enabled="false">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="parameters"></stringProp>
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">import org.apache.http.client.methods.*
+import org.apache.http.impl.client.CloseableHttpClient
+import org.apache.http.impl.client.HttpClients
+import org.apache.http.util.EntityUtils
+
+def maxRetries = 5 // Maximum retry attempts
+def attempt = 0
+
+def baseUrl = &quot;http://172.23.176.132/opencart/upload/index.php?route=product/category&amp;path=&quot;
+def redirectMap = [&quot;2558&quot;: &quot;20&quot;] // Redirect map for invalid categories
+
+def validCategory = false
+
+CloseableHttpClient httpClient = HttpClients.createDefault()
+
+while (!validCategory &amp;&amp; attempt &lt; maxRetries) {
+    attempt++
+    log.info(&quot;🔄 Attempt ${attempt} to find a valid category...&quot;)
+
+    // Step 1: Extract categoryPath from JMeter variable
+    def categoryPath = vars.get(&quot;categoryPath&quot;) ?: &quot;&quot;
+
+    // Check if the category is in the redirect map
+    if (redirectMap.containsKey(categoryPath)) {
+        log.warn(&quot;🔀 Category ${categoryPath} is invalid! Redirecting to ${redirectMap[categoryPath]}...&quot;)
+        categoryPath = redirectMap[categoryPath]
+    }
+
+    if (categoryPath == &quot;25&quot;) {
+        log.info(&quot;🔁 Category 25 detected! Redirecting to subcategory 25_28.&quot;)
+        categoryPath = &quot;25_28&quot;
+    } else {
+        log.info(&quot;✅ Valid category selected: ${categoryPath}&quot;)
+        validCategory = true
+    }
+
+    def categoryUrl = baseUrl + categoryPath
+    vars.put(&quot;finalCategoryPath&quot;, categoryPath)
+
+    log.info(&quot;🔍 Sending request to: ${categoryUrl}&quot;)
+
+    // Step 2: Make HTTP Request for Selected Category
+    def request = new HttpGet(categoryUrl)
+    def response = httpClient.execute(request)
+    def responseBody = EntityUtils.toString(response.getEntity())
+
+    // Step 3: Check if Products Exist in the Category
+    if (responseBody.contains(&quot;product_id&quot;)) {
+        log.info(&quot;✅ Products found in category ${categoryPath}. Proceeding...&quot;)
+        validCategory = true
+    } else {
+        log.warn(&quot;⚠️ No products found in category ${categoryPath}. Retrying...&quot;)
+        continue
+    }
+
+    log.info(&quot;✅ Successfully selected valid category (${categoryPath})!&quot;)
+
+    break // Exit loop if a valid category is found
+}
+
+httpClient.close()
+
+if (!validCategory) {
+    log.error(&quot;❌ Max retries reached. Could not find a valid category!&quot;)
+    Failure = true
+}</stringProp>
+                </JSR223PreProcessor>
+                <hashTree/>
+              </hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Step 4 - Show Selected Product">
+                <stringProp name="HTTPSampler.domain">${server_ip}</stringProp>
+                <stringProp name="HTTPSampler.contentEncoding">utf-8</stringProp>
+                <stringProp name="HTTPSampler.path">/opencart/upload/index.php?route=product/product&amp;path=${categoryPath}&amp;product_id=${product_id}</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                <boolProp name="HTTPSampler.DO_MULTIPART_POST">true</boolProp>
+                <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+                  <collectionProp name="Arguments.arguments"/>
+                </elementProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+                  <collectionProp name="HeaderManager.headers">
+                    <elementProp name="" elementType="Header">
+                      <stringProp name="Header.name">Referer</stringProp>
+                      <stringProp name="Header.value">http://172.23.176.132/opencart/upload/index.php?route=product/product&amp;path=${categoryPath}&amp;product_id=${product_id}</stringProp>
+                    </elementProp>
+                    <elementProp name="" elementType="Header">
+                      <stringProp name="Header.name">Accept-Language</stringProp>
+                      <stringProp name="Header.value">en-US,en;q=0.9,cs;q=0.8,ca;q=0.7,es-ES;q=0.6,es;q=0.5,de;q=0.4,de-AT;q=0.3,fr-CA;q=0.2,fr;q=0.1,en-GB;q=0.1</stringProp>
+                    </elementProp>
+                    <elementProp name="" elementType="Header">
+                      <stringProp name="Header.name">Accept-Encoding</stringProp>
+                      <stringProp name="Header.value">gzip, deflate</stringProp>
+                    </elementProp>
+                    <elementProp name="" elementType="Header">
+                      <stringProp name="Header.name">User-Agent</stringProp>
+                      <stringProp name="Header.value">Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36</stringProp>
+                    </elementProp>
+                    <elementProp name="" elementType="Header">
+                      <stringProp name="Header.name">Accept</stringProp>
+                      <stringProp name="Header.value">text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7</stringProp>
+                    </elementProp>
+                    <elementProp name="" elementType="Header">
+                      <stringProp name="Header.name">X-Requested-With</stringProp>
+                      <stringProp name="Header.value">XMLHttpRequest</stringProp>
+                    </elementProp>
+                  </collectionProp>
+                </HeaderManager>
+                <hashTree/>
+                <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="textInput">
+                  <stringProp name="HtmlExtractor.refname">textInput</stringProp>
+                  <stringProp name="HtmlExtractor.expr">input[name^=&quot;option[&quot;][type=&quot;text&quot;]:not([data-date-format])</stringProp>
+                  <stringProp name="HtmlExtractor.attribute">value</stringProp>
+                  <stringProp name="HtmlExtractor.default"></stringProp>
+                  <boolProp name="HtmlExtractor.default_empty_value">false</boolProp>
+                  <stringProp name="HtmlExtractor.match_number">1</stringProp>
+                  <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
+                </HtmlExtractor>
+                <hashTree/>
+                <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="textInput_Id">
+                  <stringProp name="HtmlExtractor.refname">textInput_Id</stringProp>
+                  <stringProp name="HtmlExtractor.expr">input[name^=&quot;option[&quot;][type=&quot;text&quot;]:not([data-date-format])</stringProp>
+                  <stringProp name="HtmlExtractor.attribute">name</stringProp>
+                  <stringProp name="HtmlExtractor.default"></stringProp>
+                  <boolProp name="HtmlExtractor.default_empty_value">false</boolProp>
+                  <stringProp name="HtmlExtractor.match_number">1</stringProp>
+                  <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
+                </HtmlExtractor>
+                <hashTree/>
+                <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="textareInput" enabled="true">
+                  <stringProp name="HtmlExtractor.refname">textareInput</stringProp>
+                  <stringProp name="HtmlExtractor.expr">textarea[name^=&quot;option[&quot;]</stringProp>
+                  <stringProp name="HtmlExtractor.attribute"></stringProp>
+                  <stringProp name="HtmlExtractor.default"></stringProp>
+                  <boolProp name="HtmlExtractor.default_empty_value">false</boolProp>
+                  <stringProp name="HtmlExtractor.match_number"></stringProp>
+                  <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
+                </HtmlExtractor>
+                <hashTree/>
+                <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="textareInput_Id">
+                  <stringProp name="HtmlExtractor.refname">textareInput_Id</stringProp>
+                  <stringProp name="HtmlExtractor.expr">textarea[name^=&quot;option[&quot;]</stringProp>
+                  <stringProp name="HtmlExtractor.attribute">name</stringProp>
+                  <stringProp name="HtmlExtractor.default"></stringProp>
+                  <boolProp name="HtmlExtractor.default_empty_value">false</boolProp>
+                  <stringProp name="HtmlExtractor.match_number"></stringProp>
+                  <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
+                </HtmlExtractor>
+                <hashTree/>
+                <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="radioSelect" enabled="true">
+                  <stringProp name="HtmlExtractor.refname">radioSelect</stringProp>
+                  <stringProp name="HtmlExtractor.expr">input[name^=&quot;option[&quot;][type=&quot;radio&quot;]</stringProp>
+                  <stringProp name="HtmlExtractor.attribute">value</stringProp>
+                  <stringProp name="HtmlExtractor.default"></stringProp>
+                  <boolProp name="HtmlExtractor.default_empty_value">false</boolProp>
+                  <stringProp name="HtmlExtractor.match_number"></stringProp>
+                  <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
+                </HtmlExtractor>
+                <hashTree/>
+                <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="radioSelect_Id">
+                  <stringProp name="HtmlExtractor.refname">radioSelect_Id</stringProp>
+                  <stringProp name="HtmlExtractor.expr">input[name^=&quot;option[&quot;][type=&quot;radio&quot;]</stringProp>
+                  <stringProp name="HtmlExtractor.attribute">name</stringProp>
+                  <stringProp name="HtmlExtractor.default"></stringProp>
+                  <boolProp name="HtmlExtractor.default_empty_value">false</boolProp>
+                  <stringProp name="HtmlExtractor.match_number">1</stringProp>
+                  <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
+                </HtmlExtractor>
+                <hashTree/>
+                <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="dropdownSelect" enabled="true">
+                  <stringProp name="HtmlExtractor.refname">dropdownSelect</stringProp>
+                  <stringProp name="HtmlExtractor.expr">select[name^=&quot;option[&quot;] option:not(:first-child)</stringProp>
+                  <stringProp name="HtmlExtractor.attribute">value</stringProp>
+                  <stringProp name="HtmlExtractor.default"></stringProp>
+                  <boolProp name="HtmlExtractor.default_empty_value">false</boolProp>
+                  <stringProp name="HtmlExtractor.match_number">1</stringProp>
+                  <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
+                </HtmlExtractor>
+                <hashTree/>
+                <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="dropdownSelect_Id" enabled="true">
+                  <stringProp name="HtmlExtractor.refname">dropdownSelect_Id</stringProp>
+                  <stringProp name="HtmlExtractor.expr">select[name^=&quot;option[&quot;] </stringProp>
+                  <stringProp name="HtmlExtractor.attribute">name</stringProp>
+                  <stringProp name="HtmlExtractor.default"></stringProp>
+                  <boolProp name="HtmlExtractor.default_empty_value">false</boolProp>
+                  <stringProp name="HtmlExtractor.match_number">1</stringProp>
+                  <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
+                </HtmlExtractor>
+                <hashTree/>
+                <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="timeSelect_Id" enabled="true">
+                  <stringProp name="HtmlExtractor.refname">timeSelect_Id</stringProp>
+                  <stringProp name="HtmlExtractor.expr">input[name^=&quot;option[&quot;][type=&quot;text&quot;][data-date-format=&quot;HH:mm&quot;]</stringProp>
+                  <stringProp name="HtmlExtractor.attribute">name</stringProp>
+                  <stringProp name="HtmlExtractor.default"></stringProp>
+                  <boolProp name="HtmlExtractor.default_empty_value">false</boolProp>
+                  <stringProp name="HtmlExtractor.match_number">1</stringProp>
+                  <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
+                </HtmlExtractor>
+                <hashTree/>
+                <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="timeSelect">
+                  <stringProp name="HtmlExtractor.refname">timeSelect</stringProp>
+                  <stringProp name="HtmlExtractor.expr">input[name^=&quot;option[&quot;][type=&quot;text&quot;][data-date-format=&quot;HH:mm&quot;]</stringProp>
+                  <stringProp name="HtmlExtractor.attribute">value</stringProp>
+                  <stringProp name="HtmlExtractor.default"></stringProp>
+                  <boolProp name="HtmlExtractor.default_empty_value">false</boolProp>
+                  <stringProp name="HtmlExtractor.match_number">1</stringProp>
+                  <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
+                </HtmlExtractor>
+                <hashTree/>
+                <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="parameters"></stringProp>
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">// Extract product ID from JMeter variable
+def productId = vars.get(&quot;product_id&quot;) ?: &quot;&quot;
+def finalProduct = productId
+
+//log.info(&quot;📌 Extracted ProductId: &apos;${productId}&apos;&quot;)
+
+// 🚨 If productId is &quot;30&quot;, redirect it to &quot;57&quot;
+if (productId == &quot;30&quot;) {
+    //log.warn(&quot;⚠️ Invalid product detected (30)! Redirecting to product 57.&quot;)
+    finalProduct = &quot;57&quot;  // Hardcoded redirect to a valid product
+} else {
+    //log.info(&quot;✅ Normal product selected: ${productId}&quot;)
+}
+
+// Store the correct product ID for the next request
+vars.put(&quot;finalProductPath&quot;, finalProduct)
+//log.info(&quot;🚀 Final Product Path Set: ${finalProduct}&quot;)
+
+// *** Override the request URL dynamically ***
+def finalPath = vars.get(&quot;finalCategoryPath&quot;) ?: &quot;&quot;  // Ensure finalPath exists
+def baseUrl = &quot;http://172.23.176.132/opencart/upload/index.php?route=product/product&amp;path=${finalPath}&amp;product_id=&quot;
+def newUrl = baseUrl + finalProduct
+
+vars.put(&quot;redirectUrl&quot;, newUrl)
+//log.info(&quot;🔀 Redirecting JMeter to: ${newUrl}&quot;)</stringProp>
+                </JSR223PreProcessor>
+                <hashTree/>
+              </hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Step 5 - Add Product to Cart">
+                <stringProp name="HTTPSampler.domain">${server_ip}</stringProp>
+                <stringProp name="HTTPSampler.contentEncoding">utf-8</stringProp>
+                <stringProp name="HTTPSampler.path">/opencart/upload/index.php?route=checkout/cart/add</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <stringProp name="HTTPSampler.method">POST</stringProp>
+                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+                  <collectionProp name="Arguments.arguments">
+                    <elementProp name="product_id" elementType="HTTPArgument">
+                      <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                      <stringProp name="Argument.value">${product_id}</stringProp>
+                      <stringProp name="Argument.metadata">=</stringProp>
+                      <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                      <stringProp name="Argument.name">product_id</stringProp>
+                    </elementProp>
+                    <elementProp name="quantity" elementType="HTTPArgument">
+                      <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                      <stringProp name="Argument.value">1</stringProp>
+                      <stringProp name="Argument.metadata">=</stringProp>
+                      <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                      <stringProp name="Argument.name">quantity</stringProp>
+                    </elementProp>
+                  </collectionProp>
+                </elementProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Regular Expression Extractor" enabled="false">
+                  <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+                  <stringProp name="RegexExtractor.refname">product_id</stringProp>
+                  <stringProp name="RegexExtractor.regex">product_id=(\d+)</stringProp>
+                  <stringProp name="RegexExtractor.template">$1$</stringProp>
+                  <stringProp name="RegexExtractor.default"></stringProp>
+                  <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
+                  <stringProp name="RegexExtractor.match_number">1</stringProp>
+                </RegexExtractor>
+                <hashTree/>
+                <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager">
+                  <collectionProp name="HeaderManager.headers">
+                    <elementProp name="" elementType="Header">
+                      <stringProp name="Header.name">Referer</stringProp>
+                      <stringProp name="Header.value">http://172.23.176.132/opencart/upload/index.php?route=product/product&amp;path=${categoryPath}&amp;product_id=${product_id}</stringProp>
+                    </elementProp>
+                    <elementProp name="" elementType="Header">
+                      <stringProp name="Header.name">Accept-Language</stringProp>
+                      <stringProp name="Header.value">en-US,en;q=0.9,cs;q=0.8,ca;q=0.7,es-ES;q=0.6,es;q=0.5,de;q=0.4,de-AT;q=0.3,fr-CA;q=0.2,fr;q=0.1,en-GB;q=0.1</stringProp>
+                    </elementProp>
+                    <elementProp name="" elementType="Header">
+                      <stringProp name="Header.name">Accept-Encoding</stringProp>
+                      <stringProp name="Header.value">gzip, deflate</stringProp>
+                    </elementProp>
+                    <elementProp name="" elementType="Header">
+                      <stringProp name="Header.name">User-Agent</stringProp>
+                      <stringProp name="Header.value">Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36</stringProp>
+                    </elementProp>
+                    <elementProp name="" elementType="Header">
+                      <stringProp name="Header.name">Accept</stringProp>
+                      <stringProp name="Header.value">application/json, text/javascript, */*; q=0.01</stringProp>
+                    </elementProp>
+                    <elementProp name="" elementType="Header">
+                      <stringProp name="Header.name">X-Requested-With</stringProp>
+                      <stringProp name="Header.value">XMLHttpRequest</stringProp>
+                    </elementProp>
+                    <elementProp name="" elementType="Header">
+                      <stringProp name="Header.name">Origin</stringProp>
+                      <stringProp name="Header.value">http://172.23.176.132</stringProp>
+                    </elementProp>
+                    <elementProp name="" elementType="Header">
+                      <stringProp name="Header.name">Content-Type</stringProp>
+                      <stringProp name="Header.value">application/x-www-form-urlencoded; charset=UTF-8</stringProp>
+                    </elementProp>
+                  </collectionProp>
+                </HeaderManager>
+                <hashTree/>
+                <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="parameters"></stringProp>
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">// Retrieve extracted option IDs (name attributes)
+def textInputId = vars.get(&quot;textInput_Id&quot;) ?: &quot;&quot;
+def textareaInputId = vars.get(&quot;textareInput_Id&quot;) ?: &quot;&quot;
+def radioSelectId = vars.get(&quot;radioSelect_Id&quot;) ?: &quot;&quot;
+def dropdownSelectId = vars.get(&quot;dropdownSelect_Id&quot;) ?: &quot;&quot;
+def timeSelectId = vars.get(&quot;timeSelect_Id&quot;) ?: &quot;&quot;
+
+// Retrieve extracted option values
+def textInputValue = vars.get(&quot;textInput&quot;) ?: &quot;&quot;
+def textareaInputValue = vars.get(&quot;textareaInput&quot;) ?: &quot;Default textarea content&quot;
+def radioSelectValue = vars.get(&quot;radioSelect&quot;) ?: &quot;&quot;
+def dropdownSelectValue = vars.get(&quot;dropdownSelect&quot;) ?: &quot;&quot;
+def timeSelectValue = vars.get(&quot;timeSelect&quot;) ?: &quot;&quot;
+
+// Log extracted raw data BEFORE mapping
+log.info(&quot;🔍 Extracted IDs -&gt; Text: ${textInputId}, Textarea: ${textareaInputId}, Radio: ${radioSelectId}, Dropdown: ${dropdownSelectId}, Time: ${timeSelectId}&quot;)
+log.info(&quot;🔍 Extracted Values -&gt; Text: ${textInputValue}, Textarea: ${textareaInputValue}, Radio: ${radioSelectValue}, Dropdown: ${dropdownSelectValue}, Time: ${timeSelectValue}&quot;)
+
+// Define a map to store option ID → value dynamically
+def extractedOptions = [:]
+
+// Validate extracted option IDs before mapping
+if (!textInputId) log.error(&quot;⚠️ Text Input ID is missing!&quot;)
+if (!textareaInputId) log.error(&quot;⚠️ Textarea ID is missing!&quot;)
+if (!radioSelectId) log.error(&quot;⚠️ Radio Select ID is missing!&quot;)
+if (!dropdownSelectId) log.error(&quot;⚠️ Dropdown Select ID is missing!&quot;)
+if (!timeSelectId) log.error(&quot;⚠️ Time Select ID is missing!&quot;)
+
+// Dynamically assign option IDs to their extracted values (ONLY if both key &amp; value exist)
+if (textInputId &amp;&amp; textInputValue) extractedOptions[textInputId] = textInputValue
+if (textareaInputId &amp;&amp; textareaInputValue) extractedOptions[textareaInputId] = textareaInputValue
+if (radioSelectId &amp;&amp; radioSelectValue) extractedOptions[radioSelectId] = radioSelectValue
+if (dropdownSelectId &amp;&amp; dropdownSelectValue) extractedOptions[dropdownSelectId] = dropdownSelectValue
+if (timeSelectId &amp;&amp; timeSelectValue) extractedOptions[timeSelectId] = timeSelectValue
+
+// Log extracted final mapping
+extractedOptions.each { key, value -&gt;
+    sampler.addArgument(key, value)
+    log.info(&quot;✅ Added to request: ${key} = ${value}&quot;)
+}
+
+// Error handling if extracted options are empty
+if (extractedOptions.isEmpty()) {
+    log.error(&quot;⚠️ No valid option IDs were extracted! Please check CSS Selectors and Debug Sampler output.&quot;)
+}</stringProp>
+                </JSR223PreProcessor>
+                <hashTree/>
+              </hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Step 6 - Open Shopping Cart">
+                <stringProp name="HTTPSampler.domain">${server_ip}</stringProp>
+                <stringProp name="HTTPSampler.contentEncoding">utf-8</stringProp>
+                <stringProp name="HTTPSampler.path">/opencart/upload/index.php?route=checkout/cart</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+                  <collectionProp name="Arguments.arguments">
+                    <elementProp name="route" elementType="HTTPArgument">
+                      <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                      <stringProp name="Argument.value">common/cart/info</stringProp>
+                      <stringProp name="Argument.metadata">=</stringProp>
+                      <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                      <stringProp name="Argument.name">route</stringProp>
+                    </elementProp>
+                  </collectionProp>
+                </elementProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+                  <collectionProp name="HeaderManager.headers">
+                    <elementProp name="Referer" elementType="Header">
+                      <stringProp name="Header.name">Referer</stringProp>
+                      <stringProp name="Header.value">http://172.23.176.132/opencart/upload/index.php?route=product/product&amp;path=${path}&amp;product_id=${product_id}</stringProp>
+                    </elementProp>
+                    <elementProp name="Accept-Language" elementType="Header">
+                      <stringProp name="Header.name">Accept-Language</stringProp>
+                      <stringProp name="Header.value">en-US,en;q=0.9,cs;q=0.8,ca;q=0.7,es-ES;q=0.6,es;q=0.5,de;q=0.4,de-AT;q=0.3,fr-CA;q=0.2,fr;q=0.1,en-GB;q=0.1</stringProp>
+                    </elementProp>
+                    <elementProp name="X-Requested-With" elementType="Header">
+                      <stringProp name="Header.name">X-Requested-With</stringProp>
+                      <stringProp name="Header.value">XMLHttpRequest</stringProp>
+                    </elementProp>
+                    <elementProp name="Accept-Encoding" elementType="Header">
+                      <stringProp name="Header.name">Accept-Encoding</stringProp>
+                      <stringProp name="Header.value">gzip, deflate</stringProp>
+                    </elementProp>
+                    <elementProp name="User-Agent" elementType="Header">
+                      <stringProp name="Header.name">User-Agent</stringProp>
+                      <stringProp name="Header.value">Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36</stringProp>
+                    </elementProp>
+                    <elementProp name="Accept" elementType="Header">
+                      <stringProp name="Header.name">Accept</stringProp>
+                      <stringProp name="Header.value">text/html, */*; q=0.01</stringProp>
+                    </elementProp>
+                  </collectionProp>
+                </HeaderManager>
+                <hashTree/>
+              </hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Step 7 - Show All Items in Cart">
+                <stringProp name="HTTPSampler.domain">${server_ip}</stringProp>
+                <stringProp name="HTTPSampler.contentEncoding">utf-8</stringProp>
+                <stringProp name="HTTPSampler.path">/opencart/upload/index.php?route=checkout/cart</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+                  <collectionProp name="Arguments.arguments">
+                    <elementProp name="route" elementType="HTTPArgument">
+                      <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                      <stringProp name="Argument.value">checkout/cart</stringProp>
+                      <stringProp name="Argument.metadata">=</stringProp>
+                      <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                      <stringProp name="Argument.name">route</stringProp>
+                    </elementProp>
+                  </collectionProp>
+                </elementProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Remove Key">
+                  <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+                  <stringProp name="RegexExtractor.refname">remove_key</stringProp>
+                  <stringProp name="RegexExtractor.regex">onclick=&quot;cart\.remove\(&apos;(\d+)&apos;\);&quot;</stringProp>
+                  <stringProp name="RegexExtractor.template">$1$</stringProp>
+                  <stringProp name="RegexExtractor.default">NOT_FOUND</stringProp>
+                  <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
+                  <stringProp name="RegexExtractor.match_number">1</stringProp>
+                </RegexExtractor>
+                <hashTree/>
+                <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="product_id" enabled="true">
+                  <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+                  <stringProp name="RegexExtractor.refname">product_id</stringProp>
+                  <stringProp name="RegexExtractor.regex">product_id=(\d+)</stringProp>
+                  <stringProp name="RegexExtractor.template">$1$</stringProp>
+                  <stringProp name="RegexExtractor.default">NOT_FOUND</stringProp>
+                  <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
+                  <stringProp name="RegexExtractor.match_number">0</stringProp>
+                  <stringProp name="Sample.scope">all</stringProp>
+                </RegexExtractor>
+                <hashTree/>
+                <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+                  <collectionProp name="HeaderManager.headers">
+                    <elementProp name="Referer" elementType="Header">
+                      <stringProp name="Header.name">Referer</stringProp>
+                      <stringProp name="Header.value">http://172.23.176.132/opencart/upload/index.php?route=product/product&amp;path=${path}&amp;product_id=${product_id}</stringProp>
+                    </elementProp>
+                    <elementProp name="Accept-Language" elementType="Header">
+                      <stringProp name="Header.name">Accept-Language</stringProp>
+                      <stringProp name="Header.value">en-US,en;q=0.9,cs;q=0.8,ca;q=0.7,es-ES;q=0.6,es;q=0.5,de;q=0.4,de-AT;q=0.3,fr-CA;q=0.2,fr;q=0.1,en-GB;q=0.1</stringProp>
+                    </elementProp>
+                    <elementProp name="Upgrade-Insecure-Requests" elementType="Header">
+                      <stringProp name="Header.name">Upgrade-Insecure-Requests</stringProp>
+                      <stringProp name="Header.value">1</stringProp>
+                    </elementProp>
+                    <elementProp name="Accept-Encoding" elementType="Header">
+                      <stringProp name="Header.name">Accept-Encoding</stringProp>
+                      <stringProp name="Header.value">gzip, deflate</stringProp>
+                    </elementProp>
+                    <elementProp name="User-Agent" elementType="Header">
+                      <stringProp name="Header.name">User-Agent</stringProp>
+                      <stringProp name="Header.value">Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36</stringProp>
+                    </elementProp>
+                    <elementProp name="Accept" elementType="Header">
+                      <stringProp name="Header.name">Accept</stringProp>
+                      <stringProp name="Header.value">text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7</stringProp>
+                    </elementProp>
+                  </collectionProp>
+                </HeaderManager>
+                <hashTree/>
+              </hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Step 8 - Delete Item ">
+                <stringProp name="HTTPSampler.domain">${server_ip}</stringProp>
+                <stringProp name="HTTPSampler.contentEncoding">utf-8</stringProp>
+                <stringProp name="HTTPSampler.path">/opencart/upload/index.php?route=checkout/cart/remove</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <stringProp name="HTTPSampler.method">POST</stringProp>
+                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+                  <collectionProp name="Arguments.arguments">
+                    <elementProp name="key" elementType="HTTPArgument">
+                      <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                      <stringProp name="Argument.value">${remove_key}</stringProp>
+                      <stringProp name="Argument.metadata">=</stringProp>
+                      <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                      <stringProp name="Argument.name">key</stringProp>
+                    </elementProp>
+                  </collectionProp>
+                </elementProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+                  <collectionProp name="HeaderManager.headers">
+                    <elementProp name="Referer" elementType="Header">
+                      <stringProp name="Header.name">Referer</stringProp>
+                      <stringProp name="Header.value">http://172.23.176.132/opencart/upload/index.php?route=checkout/cart</stringProp>
+                    </elementProp>
+                    <elementProp name="Accept-Language" elementType="Header">
+                      <stringProp name="Header.name">Accept-Language</stringProp>
+                      <stringProp name="Header.value">en-US,en;q=0.9,cs;q=0.8,ca;q=0.7,es-ES;q=0.6,es;q=0.5,de;q=0.4,de-AT;q=0.3,fr-CA;q=0.2,fr;q=0.1,en-GB;q=0.1</stringProp>
+                    </elementProp>
+                    <elementProp name="Origin" elementType="Header">
+                      <stringProp name="Header.name">Origin</stringProp>
+                      <stringProp name="Header.value">http://172.23.176.132</stringProp>
+                    </elementProp>
+                    <elementProp name="X-Requested-With" elementType="Header">
+                      <stringProp name="Header.name">X-Requested-With</stringProp>
+                      <stringProp name="Header.value">XMLHttpRequest</stringProp>
+                    </elementProp>
+                    <elementProp name="Content-Type" elementType="Header">
+                      <stringProp name="Header.name">Content-Type</stringProp>
+                      <stringProp name="Header.value">application/x-www-form-urlencoded; charset=UTF-8</stringProp>
+                    </elementProp>
+                    <elementProp name="Accept-Encoding" elementType="Header">
+                      <stringProp name="Header.name">Accept-Encoding</stringProp>
+                      <stringProp name="Header.value">gzip, deflate</stringProp>
+                    </elementProp>
+                    <elementProp name="User-Agent" elementType="Header">
+                      <stringProp name="Header.name">User-Agent</stringProp>
+                      <stringProp name="Header.value">Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36</stringProp>
+                    </elementProp>
+                    <elementProp name="Accept" elementType="Header">
+                      <stringProp name="Header.name">Accept</stringProp>
+                      <stringProp name="Header.value">application/json, text/javascript, */*; q=0.01</stringProp>
+                    </elementProp>
+                  </collectionProp>
+                </HeaderManager>
+                <hashTree/>
+                <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="false">
+                  <collectionProp name="Asserion.test_strings">
+                    <stringProp name="-1057766379">Your shopping cart is empty!</stringProp>
+                  </collectionProp>
+                  <stringProp name="Assertion.custom_message"></stringProp>
+                  <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                  <boolProp name="Assertion.assume_success">false</boolProp>
+                  <intProp name="Assertion.test_type">2</intProp>
+                </ResponseAssertion>
+                <hashTree/>
+              </hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Step 9 - Show All Items in Cart">
+                <stringProp name="HTTPSampler.domain">${server_ip}</stringProp>
+                <stringProp name="HTTPSampler.contentEncoding">utf-8</stringProp>
+                <stringProp name="HTTPSampler.path">/opencart/upload/index.php?route=checkout/cart</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+                  <collectionProp name="Arguments.arguments">
+                    <elementProp name="route" elementType="HTTPArgument">
+                      <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                      <stringProp name="Argument.value">checkout/cart</stringProp>
+                      <stringProp name="Argument.metadata">=</stringProp>
+                      <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                      <stringProp name="Argument.name">route</stringProp>
+                    </elementProp>
+                  </collectionProp>
+                </elementProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="product_id" enabled="false">
+                  <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+                  <stringProp name="RegexExtractor.refname">product_id</stringProp>
+                  <stringProp name="RegexExtractor.regex">product_id=(\d+)</stringProp>
+                  <stringProp name="RegexExtractor.template">$1$</stringProp>
+                  <stringProp name="RegexExtractor.default"></stringProp>
+                  <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
+                  <stringProp name="RegexExtractor.match_number">1</stringProp>
+                </RegexExtractor>
+                <hashTree/>
+                <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+                  <collectionProp name="HeaderManager.headers">
+                    <elementProp name="Referer" elementType="Header">
+                      <stringProp name="Header.name">Referer</stringProp>
+                      <stringProp name="Header.value">http://172.23.176.132/opencart/upload/index.php?route=product/product&amp;${path}&amp;product_id=${product_id}</stringProp>
+                    </elementProp>
+                    <elementProp name="Accept-Language" elementType="Header">
+                      <stringProp name="Header.name">Accept-Language</stringProp>
+                      <stringProp name="Header.value">en-US,en;q=0.9,cs;q=0.8,ca;q=0.7,es-ES;q=0.6,es;q=0.5,de;q=0.4,de-AT;q=0.3,fr-CA;q=0.2,fr;q=0.1,en-GB;q=0.1</stringProp>
+                    </elementProp>
+                    <elementProp name="Upgrade-Insecure-Requests" elementType="Header">
+                      <stringProp name="Header.name">Upgrade-Insecure-Requests</stringProp>
+                      <stringProp name="Header.value">1</stringProp>
+                    </elementProp>
+                    <elementProp name="Accept-Encoding" elementType="Header">
+                      <stringProp name="Header.name">Accept-Encoding</stringProp>
+                      <stringProp name="Header.value">gzip, deflate</stringProp>
+                    </elementProp>
+                    <elementProp name="User-Agent" elementType="Header">
+                      <stringProp name="Header.name">User-Agent</stringProp>
+                      <stringProp name="Header.value">Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36</stringProp>
+                    </elementProp>
+                    <elementProp name="Accept" elementType="Header">
+                      <stringProp name="Header.name">Accept</stringProp>
+                      <stringProp name="Header.value">text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7</stringProp>
+                    </elementProp>
+                  </collectionProp>
+                </HeaderManager>
+                <hashTree/>
+                <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="false">
+                  <collectionProp name="Asserion.test_strings">
+                    <stringProp name="-1057766379">Your shopping cart is empty!</stringProp>
+                  </collectionProp>
+                  <stringProp name="Assertion.custom_message"></stringProp>
+                  <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                  <boolProp name="Assertion.assume_success">false</boolProp>
+                  <intProp name="Assertion.test_type">2</intProp>
+                </ResponseAssertion>
+                <hashTree/>
+              </hashTree>
+            </hashTree>
+            <ThroughputController guiclass="ThroughputControllerGui" testclass="ThroughputController" testname="Throughput Controller">
+              <intProp name="ThroughputController.style">1</intProp>
+              <boolProp name="ThroughputController.perThread">false</boolProp>
+              <intProp name="ThroughputController.maxThroughput">1</intProp>
+              <FloatProperty>
+                <name>ThroughputController.percentThroughput</name>
+                <value>100.0</value>
+                <savedValue>0.0</savedValue>
+              </FloatProperty>
+            </ThroughputController>
+            <hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Step 10 - Detect Logout Redirect" enabled="true">
+                <stringProp name="TestPlan.comments">Detected the start of a redirect chain</stringProp>
+                <stringProp name="HTTPSampler.domain">${server_ip}</stringProp>
+                <stringProp name="HTTPSampler.port">0</stringProp>
+                <stringProp name="HTTPSampler.protocol">http</stringProp>
+                <stringProp name="HTTPSampler.contentEncoding">utf-8</stringProp>
+                <stringProp name="HTTPSampler.path">/opencart/upload/index.php</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+                  <collectionProp name="Arguments.arguments">
+                    <elementProp name="route" elementType="HTTPArgument">
+                      <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                      <stringProp name="Argument.name">route</stringProp>
+                      <stringProp name="Argument.value">account/logout</stringProp>
+                      <stringProp name="Argument.metadata">=</stringProp>
+                      <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                    </elementProp>
+                  </collectionProp>
+                </elementProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+                  <collectionProp name="HeaderManager.headers">
+                    <elementProp name="Referer" elementType="Header">
+                      <stringProp name="Header.name">Referer</stringProp>
+                      <stringProp name="Header.value">http://172.23.176.132/opencart/upload/index.php?route=common/home</stringProp>
+                    </elementProp>
+                    <elementProp name="Accept-Language" elementType="Header">
+                      <stringProp name="Header.name">Accept-Language</stringProp>
+                      <stringProp name="Header.value">en-US,en;q=0.9,cs;q=0.8,ca;q=0.7,es-ES;q=0.6,es;q=0.5,de;q=0.4,de-AT;q=0.3,fr-CA;q=0.2,fr;q=0.1,en-GB;q=0.1</stringProp>
+                    </elementProp>
+                    <elementProp name="Upgrade-Insecure-Requests" elementType="Header">
+                      <stringProp name="Header.name">Upgrade-Insecure-Requests</stringProp>
+                      <stringProp name="Header.value">1</stringProp>
+                    </elementProp>
+                    <elementProp name="Accept-Encoding" elementType="Header">
+                      <stringProp name="Header.name">Accept-Encoding</stringProp>
+                      <stringProp name="Header.value">gzip, deflate</stringProp>
+                    </elementProp>
+                    <elementProp name="User-Agent" elementType="Header">
+                      <stringProp name="Header.name">User-Agent</stringProp>
+                      <stringProp name="Header.value">Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36</stringProp>
+                    </elementProp>
+                    <elementProp name="Accept" elementType="Header">
+                      <stringProp name="Header.name">Accept</stringProp>
+                      <stringProp name="Header.value">text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7</stringProp>
+                    </elementProp>
+                  </collectionProp>
+                </HeaderManager>
+                <hashTree/>
+              </hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Step 11 - Log Out" enabled="true">
+                <stringProp name="HTTPSampler.domain">${server_ip}</stringProp>
+                <stringProp name="HTTPSampler.port">0</stringProp>
+                <stringProp name="HTTPSampler.protocol">http</stringProp>
+                <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
+                <stringProp name="HTTPSampler.path">/opencart/upload/index.php</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+                  <collectionProp name="Arguments.arguments">
+                    <elementProp name="route" elementType="HTTPArgument">
+                      <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                      <stringProp name="Argument.name">route</stringProp>
+                      <stringProp name="Argument.value">account/logout</stringProp>
+                      <stringProp name="Argument.metadata">=</stringProp>
+                      <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                    </elementProp>
+                  </collectionProp>
+                </elementProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+                  <collectionProp name="HeaderManager.headers">
+                    <elementProp name="Referer" elementType="Header">
+                      <stringProp name="Header.name">Referer</stringProp>
+                      <stringProp name="Header.value">http://172.23.176.132/opencart/upload/index.php?route=common/home</stringProp>
+                    </elementProp>
+                    <elementProp name="Accept-Language" elementType="Header">
+                      <stringProp name="Header.name">Accept-Language</stringProp>
+                      <stringProp name="Header.value">en-US,en;q=0.9,cs;q=0.8,ca;q=0.7,es-ES;q=0.6,es;q=0.5,de;q=0.4,de-AT;q=0.3,fr-CA;q=0.2,fr;q=0.1,en-GB;q=0.1</stringProp>
+                    </elementProp>
+                    <elementProp name="Upgrade-Insecure-Requests" elementType="Header">
+                      <stringProp name="Header.name">Upgrade-Insecure-Requests</stringProp>
+                      <stringProp name="Header.value">1</stringProp>
+                    </elementProp>
+                    <elementProp name="Accept-Encoding" elementType="Header">
+                      <stringProp name="Header.name">Accept-Encoding</stringProp>
+                      <stringProp name="Header.value">gzip, deflate</stringProp>
+                    </elementProp>
+                    <elementProp name="User-Agent" elementType="Header">
+                      <stringProp name="Header.name">User-Agent</stringProp>
+                      <stringProp name="Header.value">Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36</stringProp>
+                    </elementProp>
+                    <elementProp name="Accept" elementType="Header">
+                      <stringProp name="Header.name">Accept</stringProp>
+                      <stringProp name="Header.value">text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7</stringProp>
+                    </elementProp>
+                  </collectionProp>
+                </HeaderManager>
+                <hashTree/>
+              </hashTree>
+            </hashTree>
+          </hashTree>
+        </hashTree>
+        <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Think Time">
+          <intProp name="ActionProcessor.action">1</intProp>
+          <intProp name="ActionProcessor.target">0</intProp>
+          <stringProp name="ActionProcessor.duration">0</stringProp>
+        </TestAction>
+        <hashTree>
+          <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause">
+            <stringProp name="ConstantTimer.delay">1000</stringProp>
+            <stringProp name="RandomTimer.range">100</stringProp>
+          </UniformRandomTimer>
+          <hashTree/>
+        </hashTree>
+        <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler" enabled="false">
+          <boolProp name="displayJMeterProperties">false</boolProp>
+          <boolProp name="displayJMeterVariables">true</boolProp>
+          <boolProp name="displaySystemProperties">false</boolProp>
+        </DebugSampler>
+        <hashTree/>
+        <RecordingController guiclass="RecordController" testclass="RecordingController" testname="OpeCart Controller" enabled="false"/>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="OpeCart Controller/opencart/upload/index.php-18" enabled="true">
+            <stringProp name="HTTPSampler.domain">172.23.176.132</stringProp>
+            <stringProp name="HTTPSampler.port">0</stringProp>
+            <stringProp name="HTTPSampler.protocol">http</stringProp>
+            <stringProp name="HTTPSampler.path">/opencart/upload/index.php</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="route" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.name">route</stringProp>
+                  <stringProp name="Argument.value">product/category</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                </elementProp>
+                <elementProp name="path" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.name">path</stringProp>
+                  <stringProp name="Argument.value">17</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="Referer" elementType="Header">
+                  <stringProp name="Header.name">Referer</stringProp>
+                  <stringProp name="Header.value">http://172.23.176.132/opencart/upload/index.php?route=account/account</stringProp>
+                </elementProp>
+                <elementProp name="Accept-Language" elementType="Header">
+                  <stringProp name="Header.name">Accept-Language</stringProp>
+                  <stringProp name="Header.value">en-US,en;q=0.9,es-ES;q=0.8,es;q=0.7,fr-CA;q=0.6,fr;q=0.5,cs;q=0.4,ca;q=0.3,en-GB;q=0.2</stringProp>
+                </elementProp>
+                <elementProp name="Upgrade-Insecure-Requests" elementType="Header">
+                  <stringProp name="Header.name">Upgrade-Insecure-Requests</stringProp>
+                  <stringProp name="Header.value">1</stringProp>
+                </elementProp>
+                <elementProp name="Accept-Encoding" elementType="Header">
+                  <stringProp name="Header.name">Accept-Encoding</stringProp>
+                  <stringProp name="Header.value">gzip, deflate</stringProp>
+                </elementProp>
+                <elementProp name="User-Agent" elementType="Header">
+                  <stringProp name="Header.name">User-Agent</stringProp>
+                  <stringProp name="Header.value">Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36</stringProp>
+                </elementProp>
+                <elementProp name="Accept" elementType="Header">
+                  <stringProp name="Header.name">Accept</stringProp>
+                  <stringProp name="Header.value">text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="OpeCart Controller/opencart/upload/image/cache/catalog/samsung-228x228.jpg-19" enabled="true">
+            <stringProp name="HTTPSampler.domain">172.23.176.132</stringProp>
+            <stringProp name="HTTPSampler.port">0</stringProp>
+            <stringProp name="HTTPSampler.protocol">http</stringProp>
+            <stringProp name="HTTPSampler.path">/opencart/upload/image/cache/catalog/samsung-228x228.jpg</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="Referer" elementType="Header">
+                  <stringProp name="Header.name">Referer</stringProp>
+                  <stringProp name="Header.value">http://172.23.176.132/opencart/upload/index.php?route=product/category&amp;path=17</stringProp>
+                </elementProp>
+                <elementProp name="Accept-Language" elementType="Header">
+                  <stringProp name="Header.name">Accept-Language</stringProp>
+                  <stringProp name="Header.value">en-US,en;q=0.9,es-ES;q=0.8,es;q=0.7,fr-CA;q=0.6,fr;q=0.5,cs;q=0.4,ca;q=0.3,en-GB;q=0.2</stringProp>
+                </elementProp>
+                <elementProp name="Accept-Encoding" elementType="Header">
+                  <stringProp name="Header.name">Accept-Encoding</stringProp>
+                  <stringProp name="Header.value">gzip, deflate</stringProp>
+                </elementProp>
+                <elementProp name="User-Agent" elementType="Header">
+                  <stringProp name="Header.name">User-Agent</stringProp>
+                  <stringProp name="Header.value">Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36</stringProp>
+                </elementProp>
+                <elementProp name="Accept" elementType="Header">
+                  <stringProp name="Header.name">Accept</stringProp>
+                  <stringProp name="Header.value">image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="OpeCart Controller/opencart/upload/index.php?route=checkout/cart/add-20" enabled="true">
+            <stringProp name="HTTPSampler.domain">172.23.176.132</stringProp>
+            <stringProp name="HTTPSampler.port">0</stringProp>
+            <stringProp name="HTTPSampler.protocol">http</stringProp>
+            <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
+            <stringProp name="HTTPSampler.path">/opencart/upload/index.php?route=checkout/cart/add</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="product_id" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.name">product_id</stringProp>
+                  <stringProp name="Argument.value">8784</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                </elementProp>
+                <elementProp name="quantity" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.name">quantity</stringProp>
+                  <stringProp name="Argument.value">1</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="Referer" elementType="Header">
+                  <stringProp name="Header.name">Referer</stringProp>
+                  <stringProp name="Header.value">http://172.23.176.132/opencart/upload/index.php?route=product/category&amp;path=17</stringProp>
+                </elementProp>
+                <elementProp name="Accept-Language" elementType="Header">
+                  <stringProp name="Header.name">Accept-Language</stringProp>
+                  <stringProp name="Header.value">en-US,en;q=0.9,es-ES;q=0.8,es;q=0.7,fr-CA;q=0.6,fr;q=0.5,cs;q=0.4,ca;q=0.3,en-GB;q=0.2</stringProp>
+                </elementProp>
+                <elementProp name="Origin" elementType="Header">
+                  <stringProp name="Header.name">Origin</stringProp>
+                  <stringProp name="Header.value">http://172.23.176.132</stringProp>
+                </elementProp>
+                <elementProp name="X-Requested-With" elementType="Header">
+                  <stringProp name="Header.name">X-Requested-With</stringProp>
+                  <stringProp name="Header.value">XMLHttpRequest</stringProp>
+                </elementProp>
+                <elementProp name="Content-Type" elementType="Header">
+                  <stringProp name="Header.name">Content-Type</stringProp>
+                  <stringProp name="Header.value">application/x-www-form-urlencoded; charset=UTF-8</stringProp>
+                </elementProp>
+                <elementProp name="Accept-Encoding" elementType="Header">
+                  <stringProp name="Header.name">Accept-Encoding</stringProp>
+                  <stringProp name="Header.value">gzip, deflate</stringProp>
+                </elementProp>
+                <elementProp name="Accept" elementType="Header">
+                  <stringProp name="Header.name">Accept</stringProp>
+                  <stringProp name="Header.value">application/json, text/javascript, */*; q=0.01</stringProp>
+                </elementProp>
+                <elementProp name="User-Agent" elementType="Header">
+                  <stringProp name="Header.name">User-Agent</stringProp>
+                  <stringProp name="Header.value">Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="OpeCart Controller/opencart/upload/index.php-21" enabled="true">
+            <stringProp name="HTTPSampler.domain">172.23.176.132</stringProp>
+            <stringProp name="HTTPSampler.port">0</stringProp>
+            <stringProp name="HTTPSampler.protocol">http</stringProp>
+            <stringProp name="HTTPSampler.contentEncoding">utf-8</stringProp>
+            <stringProp name="HTTPSampler.path">/opencart/upload/index.php</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="route" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.name">route</stringProp>
+                  <stringProp name="Argument.value">common/cart/info</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="Referer" elementType="Header">
+                  <stringProp name="Header.name">Referer</stringProp>
+                  <stringProp name="Header.value">http://172.23.176.132/opencart/upload/index.php?route=product/category&amp;path=17</stringProp>
+                </elementProp>
+                <elementProp name="Accept-Language" elementType="Header">
+                  <stringProp name="Header.name">Accept-Language</stringProp>
+                  <stringProp name="Header.value">en-US,en;q=0.9,es-ES;q=0.8,es;q=0.7,fr-CA;q=0.6,fr;q=0.5,cs;q=0.4,ca;q=0.3,en-GB;q=0.2</stringProp>
+                </elementProp>
+                <elementProp name="X-Requested-With" elementType="Header">
+                  <stringProp name="Header.name">X-Requested-With</stringProp>
+                  <stringProp name="Header.value">XMLHttpRequest</stringProp>
+                </elementProp>
+                <elementProp name="Accept-Encoding" elementType="Header">
+                  <stringProp name="Header.name">Accept-Encoding</stringProp>
+                  <stringProp name="Header.value">gzip, deflate</stringProp>
+                </elementProp>
+                <elementProp name="Accept" elementType="Header">
+                  <stringProp name="Header.name">Accept</stringProp>
+                  <stringProp name="Header.value">text/html, */*; q=0.01</stringProp>
+                </elementProp>
+                <elementProp name="User-Agent" elementType="Header">
+                  <stringProp name="Header.name">User-Agent</stringProp>
+                  <stringProp name="Header.value">Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="OpeCart Controller/opencart/upload/image/cache/catalog/samsung-47x47.jpg-22" enabled="true">
+            <stringProp name="HTTPSampler.domain">172.23.176.132</stringProp>
+            <stringProp name="HTTPSampler.port">0</stringProp>
+            <stringProp name="HTTPSampler.protocol">http</stringProp>
+            <stringProp name="HTTPSampler.path">/opencart/upload/image/cache/catalog/samsung-47x47.jpg</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="Referer" elementType="Header">
+                  <stringProp name="Header.name">Referer</stringProp>
+                  <stringProp name="Header.value">http://172.23.176.132/opencart/upload/index.php?route=product/category&amp;path=17</stringProp>
+                </elementProp>
+                <elementProp name="Accept-Language" elementType="Header">
+                  <stringProp name="Header.name">Accept-Language</stringProp>
+                  <stringProp name="Header.value">en-US,en;q=0.9,es-ES;q=0.8,es;q=0.7,fr-CA;q=0.6,fr;q=0.5,cs;q=0.4,ca;q=0.3,en-GB;q=0.2</stringProp>
+                </elementProp>
+                <elementProp name="Accept-Encoding" elementType="Header">
+                  <stringProp name="Header.name">Accept-Encoding</stringProp>
+                  <stringProp name="Header.value">gzip, deflate</stringProp>
+                </elementProp>
+                <elementProp name="User-Agent" elementType="Header">
+                  <stringProp name="Header.name">User-Agent</stringProp>
+                  <stringProp name="Header.value">Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36</stringProp>
+                </elementProp>
+                <elementProp name="Accept" elementType="Header">
+                  <stringProp name="Header.name">Accept</stringProp>
+                  <stringProp name="Header.value">image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="OpeCart Controller/opencart/upload/index.php-23" enabled="true">
+            <stringProp name="HTTPSampler.domain">172.23.176.132</stringProp>
+            <stringProp name="HTTPSampler.port">0</stringProp>
+            <stringProp name="HTTPSampler.protocol">http</stringProp>
+            <stringProp name="HTTPSampler.contentEncoding">utf-8</stringProp>
+            <stringProp name="HTTPSampler.path">/opencart/upload/index.php</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="route" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.name">route</stringProp>
+                  <stringProp name="Argument.value">checkout/cart</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="Referer" elementType="Header">
+                  <stringProp name="Header.name">Referer</stringProp>
+                  <stringProp name="Header.value">http://172.23.176.132/opencart/upload/index.php?route=product/category&amp;path=17</stringProp>
+                </elementProp>
+                <elementProp name="Accept-Language" elementType="Header">
+                  <stringProp name="Header.name">Accept-Language</stringProp>
+                  <stringProp name="Header.value">en-US,en;q=0.9,es-ES;q=0.8,es;q=0.7,fr-CA;q=0.6,fr;q=0.5,cs;q=0.4,ca;q=0.3,en-GB;q=0.2</stringProp>
+                </elementProp>
+                <elementProp name="Upgrade-Insecure-Requests" elementType="Header">
+                  <stringProp name="Header.name">Upgrade-Insecure-Requests</stringProp>
+                  <stringProp name="Header.value">1</stringProp>
+                </elementProp>
+                <elementProp name="Accept-Encoding" elementType="Header">
+                  <stringProp name="Header.name">Accept-Encoding</stringProp>
+                  <stringProp name="Header.value">gzip, deflate</stringProp>
+                </elementProp>
+                <elementProp name="User-Agent" elementType="Header">
+                  <stringProp name="Header.name">User-Agent</stringProp>
+                  <stringProp name="Header.value">Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36</stringProp>
+                </elementProp>
+                <elementProp name="Accept" elementType="Header">
+                  <stringProp name="Header.name">Accept</stringProp>
+                  <stringProp name="Header.value">text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="OpeCart Controller/opencart/upload/index.php-24" enabled="true">
+            <stringProp name="HTTPSampler.domain">172.23.176.132</stringProp>
+            <stringProp name="HTTPSampler.port">0</stringProp>
+            <stringProp name="HTTPSampler.protocol">http</stringProp>
+            <stringProp name="HTTPSampler.contentEncoding">utf-8</stringProp>
+            <stringProp name="HTTPSampler.path">/opencart/upload/index.php</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="route" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.name">route</stringProp>
+                  <stringProp name="Argument.value">extension/total/shipping/country</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                </elementProp>
+                <elementProp name="country_id" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.name">country_id</stringProp>
+                  <stringProp name="Argument.value">222</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="Referer" elementType="Header">
+                  <stringProp name="Header.name">Referer</stringProp>
+                  <stringProp name="Header.value">http://172.23.176.132/opencart/upload/index.php?route=checkout/cart</stringProp>
+                </elementProp>
+                <elementProp name="Accept-Language" elementType="Header">
+                  <stringProp name="Header.name">Accept-Language</stringProp>
+                  <stringProp name="Header.value">en-US,en;q=0.9,es-ES;q=0.8,es;q=0.7,fr-CA;q=0.6,fr;q=0.5,cs;q=0.4,ca;q=0.3,en-GB;q=0.2</stringProp>
+                </elementProp>
+                <elementProp name="X-Requested-With" elementType="Header">
+                  <stringProp name="Header.name">X-Requested-With</stringProp>
+                  <stringProp name="Header.value">XMLHttpRequest</stringProp>
+                </elementProp>
+                <elementProp name="Accept-Encoding" elementType="Header">
+                  <stringProp name="Header.name">Accept-Encoding</stringProp>
+                  <stringProp name="Header.value">gzip, deflate</stringProp>
+                </elementProp>
+                <elementProp name="Accept" elementType="Header">
+                  <stringProp name="Header.name">Accept</stringProp>
+                  <stringProp name="Header.value">application/json, text/javascript, */*; q=0.01</stringProp>
+                </elementProp>
+                <elementProp name="User-Agent" elementType="Header">
+                  <stringProp name="Header.name">User-Agent</stringProp>
+                  <stringProp name="Header.value">Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="OpeCart Controller/opencart/upload/index.php?route=checkout/cart/remove-25" enabled="true">
+            <stringProp name="HTTPSampler.domain">172.23.176.132</stringProp>
+            <stringProp name="HTTPSampler.port">0</stringProp>
+            <stringProp name="HTTPSampler.protocol">http</stringProp>
+            <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
+            <stringProp name="HTTPSampler.path">/opencart/upload/index.php?route=checkout/cart/remove</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="key" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.name">key</stringProp>
+                  <stringProp name="Argument.value">185422</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="Referer" elementType="Header">
+                  <stringProp name="Header.name">Referer</stringProp>
+                  <stringProp name="Header.value">http://172.23.176.132/opencart/upload/index.php?route=checkout/cart</stringProp>
+                </elementProp>
+                <elementProp name="Accept-Language" elementType="Header">
+                  <stringProp name="Header.name">Accept-Language</stringProp>
+                  <stringProp name="Header.value">en-US,en;q=0.9,es-ES;q=0.8,es;q=0.7,fr-CA;q=0.6,fr;q=0.5,cs;q=0.4,ca;q=0.3,en-GB;q=0.2</stringProp>
+                </elementProp>
+                <elementProp name="Origin" elementType="Header">
+                  <stringProp name="Header.name">Origin</stringProp>
+                  <stringProp name="Header.value">http://172.23.176.132</stringProp>
+                </elementProp>
+                <elementProp name="X-Requested-With" elementType="Header">
+                  <stringProp name="Header.name">X-Requested-With</stringProp>
+                  <stringProp name="Header.value">XMLHttpRequest</stringProp>
+                </elementProp>
+                <elementProp name="Content-Type" elementType="Header">
+                  <stringProp name="Header.name">Content-Type</stringProp>
+                  <stringProp name="Header.value">application/x-www-form-urlencoded; charset=UTF-8</stringProp>
+                </elementProp>
+                <elementProp name="Accept-Encoding" elementType="Header">
+                  <stringProp name="Header.name">Accept-Encoding</stringProp>
+                  <stringProp name="Header.value">gzip, deflate</stringProp>
+                </elementProp>
+                <elementProp name="Accept" elementType="Header">
+                  <stringProp name="Header.name">Accept</stringProp>
+                  <stringProp name="Header.value">application/json, text/javascript, */*; q=0.01</stringProp>
+                </elementProp>
+                <elementProp name="User-Agent" elementType="Header">
+                  <stringProp name="Header.name">User-Agent</stringProp>
+                  <stringProp name="Header.value">Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="OpeCart Controller/opencart/upload/index.php-26" enabled="true">
+            <stringProp name="HTTPSampler.domain">172.23.176.132</stringProp>
+            <stringProp name="HTTPSampler.port">0</stringProp>
+            <stringProp name="HTTPSampler.protocol">http</stringProp>
+            <stringProp name="HTTPSampler.contentEncoding">utf-8</stringProp>
+            <stringProp name="HTTPSampler.path">/opencart/upload/index.php</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="route" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.name">route</stringProp>
+                  <stringProp name="Argument.value">checkout/cart</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="Referer" elementType="Header">
+                  <stringProp name="Header.name">Referer</stringProp>
+                  <stringProp name="Header.value">http://172.23.176.132/opencart/upload/index.php?route=checkout/cart</stringProp>
+                </elementProp>
+                <elementProp name="Accept-Language" elementType="Header">
+                  <stringProp name="Header.name">Accept-Language</stringProp>
+                  <stringProp name="Header.value">en-US,en;q=0.9,es-ES;q=0.8,es;q=0.7,fr-CA;q=0.6,fr;q=0.5,cs;q=0.4,ca;q=0.3,en-GB;q=0.2</stringProp>
+                </elementProp>
+                <elementProp name="Upgrade-Insecure-Requests" elementType="Header">
+                  <stringProp name="Header.name">Upgrade-Insecure-Requests</stringProp>
+                  <stringProp name="Header.value">1</stringProp>
+                </elementProp>
+                <elementProp name="Accept-Encoding" elementType="Header">
+                  <stringProp name="Header.name">Accept-Encoding</stringProp>
+                  <stringProp name="Header.value">gzip, deflate</stringProp>
+                </elementProp>
+                <elementProp name="User-Agent" elementType="Header">
+                  <stringProp name="Header.name">User-Agent</stringProp>
+                  <stringProp name="Header.value">Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36</stringProp>
+                </elementProp>
+                <elementProp name="Accept" elementType="Header">
+                  <stringProp name="Header.name">Accept</stringProp>
+                  <stringProp name="Header.value">text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="OpeCart Controller/opencart/upload/index.php-27" enabled="true">
+            <stringProp name="HTTPSampler.domain">172.23.176.132</stringProp>
+            <stringProp name="HTTPSampler.port">0</stringProp>
+            <stringProp name="HTTPSampler.protocol">http</stringProp>
+            <stringProp name="HTTPSampler.contentEncoding">utf-8</stringProp>
+            <stringProp name="HTTPSampler.path">/opencart/upload/index.php</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="route" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.name">route</stringProp>
+                  <stringProp name="Argument.value">common/home</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="Referer" elementType="Header">
+                  <stringProp name="Header.name">Referer</stringProp>
+                  <stringProp name="Header.value">http://172.23.176.132/opencart/upload/index.php?route=checkout/cart</stringProp>
+                </elementProp>
+                <elementProp name="Accept-Language" elementType="Header">
+                  <stringProp name="Header.name">Accept-Language</stringProp>
+                  <stringProp name="Header.value">en-US,en;q=0.9,es-ES;q=0.8,es;q=0.7,fr-CA;q=0.6,fr;q=0.5,cs;q=0.4,ca;q=0.3,en-GB;q=0.2</stringProp>
+                </elementProp>
+                <elementProp name="Upgrade-Insecure-Requests" elementType="Header">
+                  <stringProp name="Header.name">Upgrade-Insecure-Requests</stringProp>
+                  <stringProp name="Header.value">1</stringProp>
+                </elementProp>
+                <elementProp name="Accept-Encoding" elementType="Header">
+                  <stringProp name="Header.name">Accept-Encoding</stringProp>
+                  <stringProp name="Header.value">gzip, deflate</stringProp>
+                </elementProp>
+                <elementProp name="User-Agent" elementType="Header">
+                  <stringProp name="Header.name">User-Agent</stringProp>
+                  <stringProp name="Header.value">Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36</stringProp>
+                </elementProp>
+                <elementProp name="Accept" elementType="Header">
+                  <stringProp name="Header.name">Accept</stringProp>
+                  <stringProp name="Header.value">text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename">/Users/adrianstrimbanu/Downloads/apache-jmeter-5.6.3/log10031.jtl</stringProp>
+        </ResultCollector>
+        <hashTree/>
+        <ResultCollector guiclass="TableVisualizer" testclass="ResultCollector" testname="View Results in Table">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename">/Users/adrianstrimbanu/Downloads/apache-jmeter-5.6.3/log10031.jtl</stringProp>
+        </ResultCollector>
+        <hashTree/>
+        <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="Aggregate Report">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename">/Users/adrianstrimbanu/Downloads/apache-jmeter-5.6.3/log10031.jtl</stringProp>
+        </ResultCollector>
+        <hashTree/>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
